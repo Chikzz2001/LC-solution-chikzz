@@ -24,15 +24,9 @@ public:
                 auto [f2,s2]=p;
                 maxx=max(maxx,abs(f1-f2));
                 if(s1!=-1)
-                {
                     maxx=max(maxx,abs(f2-s1));
-                }
                 if(s2!=-1)
-                {
                     maxx=max(maxx,abs(f1-s2));
-                }
-                if(s1!=-1&&s2!=-1)
-                    maxx=max(maxx,abs(s1-s2));
             }
         }
         return maxx;
