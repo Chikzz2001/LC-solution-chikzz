@@ -4,11 +4,7 @@ public:
     {
         if(num==0)return "0";
         string res;
-        long long n;
-        if(num<0)
-            n=4294967296+num;
-        else 
-            n=num;
+        unsigned int n=num;
         
         while(n)
         {
