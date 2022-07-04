@@ -43,9 +43,9 @@ int minFlips (string S)
     minn=min(minn,count(S));
     S[0]='0'+(1-(S[0]-'0'));
     minn=min(minn,1+count(S));
-    S[0]='0'+(1-(S[0]-'0'));
-    minn=min(minn,count2(S));
-    S[n-1]='0'+(1-(S[n-1]-'0'));
-    minn=min(minn,1+count2(S));
+    // S[0]='0'+(1-(S[0]-'0'));
+    // minn=min(minn,count2(S));
+    // S[n-1]='0'+(1-(S[n-1]-'0'));
+    // minn=min(minn,1+count2(S));
     return minn;
 }
