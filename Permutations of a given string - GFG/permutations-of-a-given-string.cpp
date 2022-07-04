@@ -5,31 +5,24 @@ using namespace std;
  // } Driver Code Ends
 class Solution
 {
-    set<string>res;
-    void permute(string &s,int idx)
-    {
-        if(idx==(int)s.length())
-        {
-            if(!res.count(s))
-            res.insert(s);
+     void recursion(string num, int i, int j, vector<string>&res) {
+        if (i == j-1) {
+            res.push_back(num);
             return;
         }
-        
-        for(int i=idx;i<(int)s.length();i++)
-        {
-               swap(s[i],s[idx]);
-                permute(s,idx+1);
-                swap(s[i],s[idx]); 
+        for (int k = i; k < j; k++) {
+            if (i != k && num[i] == num[k]) continue;
+            swap(num[i], num[k]);
+            recursion(num, i+1, j, res);
         }
     }
 	public:
-		vector<string>find_permutation(string S)
+		vector<string> find_permutation(string num)
 		{
-		    // Code here there
-		    permute(S,0);
-		    vector<string>ans;
-		    for(auto &x:res)ans.push_back(x);
-		    return ans;
+		    sort(num.begin(), num.end());
+        vector<string>res;
+        recursion(num, 0, num.size(), res);
+        return res;
 		}
 };
 
