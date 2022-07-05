@@ -10,6 +10,20 @@ class Solution {
         }
     };
     
+    int UpperBound(vector<node>& jobs,int val)
+    {
+        int lo=0,hi=jobs.size()-1;
+        
+        while(lo<=hi)
+        {
+            int mid=lo+(hi-lo)/2;
+            if(jobs[mid].end<=val)
+                lo=mid+1;
+            else
+                hi=mid-1;
+        }
+        return lo;
+    }
 //     int maxProfit(vector<node>& jobs,int i,int prev,int &n,vector<vector<int>>& dp)
 //     {
 //         if(i==n)
@@ -53,14 +67,17 @@ public:
         for(int i=1;i<n;i++)
         {
             dp[i]=max(dp[i-1],jobs[i].profit);
-            for(int j=i-1;j>=0;j--)
-            {
-                if(jobs[j].end<=jobs[i].start)
-                {
-                    dp[i]=max(dp[i],jobs[i].profit+dp[j]);
-                    break;
-                }
-            }
+            // for(int j=i-1;j>=0;j--)
+            // {
+            //     if(jobs[j].end<=jobs[i].start)
+            //     {
+            //         dp[i]=max(dp[i],jobs[i].profit+dp[j]);
+            //         break;
+            //     }
+            // }
+            int idx=UpperBound(jobs,jobs[i].start)-1;
+            if(idx!=-1)
+                dp[i]=max(dp[i],jobs[i].profit+dp[idx]);
         }
         return dp[n-1];
     }
