@@ -7,7 +7,7 @@ public:
         
         int n=nums1.size(),m=nums2.size();
         
-        int lo=0,hi=min(m,(n+m+1)/2);
+        int lo=0,hi=m;
         
         while(lo<=hi)
         {
