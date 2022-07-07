@@ -1,31 +1,35 @@
 class Solution {
-    int dp[101][101];
-    bool isPossible(string &s1,string &s2,string& s3,int i,int j,int k,int &n1,int &n2,int &n3)
-    {
-        if(k==n3&&i==n1&&j==n2)return 1;
-        
-        if(k>=n3||(i>=n1&&j>=n2))return 0;
-        
-        if(i<n1&&j<n2&&s1[i]!=s3[k]&&s2[j]!=s3[k])return 0;
-        
-        if(dp[i][j]!=-1)return dp[i][j];
-        
-        bool f1=0,f2=0;
-        if(i<n1&&s1[i]==s3[k])
-            f1=isPossible(s1,s2,s3,i+1,j,k+1,n1,n2,n3);
-        
-        if(j<n2&&s2[j]==s3[k])
-            f2=isPossible(s1,s2,s3,i,j+1,k+1,n1,n2,n3);
-        
-        return dp[i][j]=f1|f2?1:0;
-    }
 public:
-    bool isInterleave(string s1, string s2, string s3) {
+    bool isInterleave(string s1, string s2, string s3) 
+    {
+        //dp[i][j]-->is true if s3 till (i+j-1)th idx can be formed by interleaving s1 and s2 till (i-1)th 
+        //and (j-1)th idx respectively.
         
-        int n1=s1.length(),n2=s2.length(),n3=s3.length();
+        int n=s1.length(),m=s2.length();
+        if(n+m!=s3.length())return 0;
+        vector<vector<bool>>dp(n+1,vector<bool>(m+1,0));
         
-        if((n1+n2)!=n3)return 0;
-        memset(dp,-1,sizeof(dp));
-        return isPossible(s1,s2,s3,0,0,0,n1,n2,n3);
+        dp[0][0]=1;
+        for(int i=1;i<=n;i++)if(s1[i-1]==s3[i-1])dp[i][0]=dp[i-1][0];
+        for(int i=1;i<=m;i++)if(s2[i-1]==s3[i-1])dp[0][i]=dp[0][i-1];
+        
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                    if(s1[i-1]==s3[i+j-1]&&dp[i-1][j])
+                       dp[i][j]=1;
+                    if(s2[j-1]==s3[i+j-1]&&dp[i][j-1])
+                       dp[i][j]=1;
+            }
+        }
+        
+        // for(int i=0;i<=n;i++)
+        // {
+        //     for(int j=0;j<=m;j++)
+        //         cout<<dp[i][j]<<" ";
+        //     cout<<"\n";
+        // }
+        return dp[n][m];
     }
 };
