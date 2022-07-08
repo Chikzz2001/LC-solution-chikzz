@@ -9,7 +9,7 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-#define ll long long int
+#define ll long long
 class Solution 
 {
     bool valid(TreeNode* root,ll lower_bound,ll upper_bound)
@@ -22,8 +22,6 @@ class Solution
 public:
     bool isValidBST(TreeNode* root) 
     {
-        
-        
         return valid(root,-1e12,1e12);
     }
 };
