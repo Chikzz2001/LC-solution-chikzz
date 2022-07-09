@@ -21,8 +21,3 @@ public:
     }
 };
 
-/*
-
-"bbbbbbbbbbbbbbbbbbbbbbbbbbb a bbbbbbbbbbbbbbb cc b c b c b cc bb a bbb"
-"c a b aa b a c"
-*/
