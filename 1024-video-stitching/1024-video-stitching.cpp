@@ -7,10 +7,10 @@ public:
         int n=clips.size();
         int dp[n+1];
         int i=0;
-        int res=n+2;
         for(;i<n&&clips[i][0]==0;i++)
         {dp[i]=1;if(clips[i][1]>=time)return 1;}
-
+        
+        int res=n+2;
         for(;i<n;i++)
         {
             dp[i]=i+2;
@@ -21,8 +21,7 @@ public:
                     dp[i]=min(dp[i],1+dp[j]);
                 }
             }
-            
-            if(dp[i]!=i+2&&clips[i][1]>=time)
+            if(dp[i]!=(i+2)&&clips[i][1]>=time)
                 res=min(res,dp[i]);
         }
         
