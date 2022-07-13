@@ -15,16 +15,7 @@ class Solution {
 public:
     int minSpeedOnTime(vector<int>& dist, double hour) 
     {
-        // int h=ceil(hour);
-        // if(h<dist.size())return -1;
-        ll tot_dist=0;
-        for(auto &d:dist)tot_dist+=d;
-        
-        double speed=tot_dist/hour;
-        if(speed>1e7)return -1;
-        
         ll lo=1,hi=1e7,res=-1;
-        
         while(lo<=hi)
         {
             ll mid=lo+(hi-lo)/2;
