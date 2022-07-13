@@ -7,6 +7,8 @@ public:
       
         //dp[i][j]-->true if prefix till i-1th idx of s can be matched with j-1th prefix of string p
         dp[0][0]=1;
+        
+        //careful(edge case)
         for(int j=1;j<=pl;j++)
             if(p[j-1]=='*')dp[0][j]=dp[0][j-2];
      
@@ -20,6 +22,7 @@ public:
                     if(dp[i][j-2])continue;
                     for(int k=i;k>=1;k--)
                     {
+                        //'.' can be equal to any character so ".*" can match with any given string
                         if(s[k-1]==p[j-2]||p[j-2]=='.')
                             dp[i][j]|=dp[k][j-1];
                         else
@@ -37,12 +40,6 @@ public:
             }
         }
         
-        // for(int i=0;i<=sl;i++)
-        // {
-        //     for(int j=0;j<=pl;j++)
-        //         cout<<dp[i][j]<<" ";
-        //     cout<<"\n";
-        //     }
         return dp[sl][pl];
     }
 };
@@ -50,12 +47,13 @@ public:
 /*
 "aaabaaaababcbccbaab"
 "c*c*.*c*a*..*c*"
+
 "aab"
 "b.*"
+
 "a"
 ".*."
+
 "aab"
 "c*a*b"
-
-
 */
