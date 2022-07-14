@@ -72,37 +72,7 @@ class Solution {
 public:
     vector<vector<int>> findCriticalAndPseudoCriticalEdges(int n, vector<vector<int>>& edges) 
     {
-        priority_queue<pair<int,pair<int,int>>>pQ;
-        // vector<vector<int>>edges_in_MST;
-        set<int>MST_idx;
-        map<pair<int,int>,int>idx;
-        set<int>wts;
-        int i=0;
-        for(auto &e:edges)
-        {
-            pQ.push({-e[2],{e[0],e[1]}});
-            idx[{e[0],e[1]}]=i++;
-        }
-        
-        DSU dsu(n);
-        int edges_in_MST=0,wt_of_MST=0;
-        while(!pQ.empty())
-        {
-            if(edges_in_MST==n-1)break;
-            auto [wt,P]=pQ.top();
-            auto [u,v]=P;
-            pQ.pop();
-            
-            if(!dsu.join(u,v))
-            {
-                //edges_in_MST.push_back({u,v,-wt});
-                MST_idx.insert(idx[{u,v}]);
-                edges_in_MST++;
-                wt_of_MST-=wt;
-                wts.insert(-wt);
-            }
-        }
-        
+        int wt_of_MST=find_wt(edges,-1,n,0);
         vector<vector<int>>res;
         vector<int>critical,pseudo_critical;
         int id=0;
