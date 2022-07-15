@@ -37,7 +37,30 @@ class Solution
     public:
     Node *sortedInsert(Node* head, int data)
     {
-      
+      Node* temp=head;
+      if(head->data>data)
+      {
+          Node* newNode=new Node(data);
+          while(temp->next!=head)
+          {
+              temp=temp->next;
+          }
+          temp->next=newNode;
+          newNode->next=head;
+          return newNode;
+      }
+      while(1)
+      {
+          if(temp->data==data||(temp->data<data&&temp->next->data>data)||(temp->data<data&&temp->data>temp->next->data))
+          {
+              Node* next=temp->next;
+              Node* newNode=new Node(data);
+              temp->next=newNode;
+              newNode->next=next;
+              return head;
+          }
+         temp=temp->next;
+      }
     }
 };
 
