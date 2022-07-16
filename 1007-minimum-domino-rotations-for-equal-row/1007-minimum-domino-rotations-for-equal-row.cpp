@@ -27,31 +27,5 @@ public:
         
         if(maxup==-1)return -1;
         return min(n-maxup,n-maxdown);
-            
-//         if(!possibilities.size())
-//             return -1;
-        
-//         int minn=1e9;
-//         for(auto &x:possibilities)
-//         {
-//             // int count1=0,count2=0;
-//             // for(int i=0;i<n;i++)
-//             // {
-//             //     if(tops[i]==x&&bottoms[i]==x)continue;
-//             //   if(tops[i]==x)  
-//             //   {
-//             //      count1++; 
-//             //   }
-//             //   else if(bottoms[i]==x)
-//             //   {
-//             //     count2++;
-//             //   }
-//             // } 
-//             // minn=min({minn,count1,count2});
-//             //cout<<faceup[x]<<" "<<faceup[x]<<"\n";
-//             minn=min({minn,n-faceup[x],n-facedown[x]});
-//         }
-        
-//         return minn;
     }
 };
