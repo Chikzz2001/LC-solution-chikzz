@@ -4,24 +4,26 @@ public:
     {
         int n=s.length();
         
-        int dp[n][2];
-        
-        dp[0][0]=(s[0]=='0')?0:1,dp[0][1]=(s[0]=='1')?0:1;
+        int prev_ends_with_zero,prev_ends_with_one;
+        prev_ends_with_zero=(s[0]=='0')?0:1,prev_ends_with_one=(s[0]=='1')?0:1;
         
         for(int i=1;i<n;i++)
         {
+            int curr_ends_with_zero,curr_ends_with_one;
             if(s[i]=='0')
             {
-                dp[i][0]=dp[i-1][0];
-                dp[i][1]=1+min(dp[i-1][0],dp[i-1][1]);
+                curr_ends_with_zero=prev_ends_with_zero;
+                curr_ends_with_one=1+min(prev_ends_with_zero,prev_ends_with_one);
             }
             else
             {
-                dp[i][0]=1+dp[i-1][0];
-                dp[i][1]=min(dp[i-1][1],dp[i-1][0]);
+                curr_ends_with_zero=1+prev_ends_with_zero;
+                curr_ends_with_one=min(prev_ends_with_one,prev_ends_with_zero);
             }
+            prev_ends_with_zero=curr_ends_with_zero;
+            prev_ends_with_one=curr_ends_with_one;
         }
         
-        return min(dp[n-1][0],dp[n-1][1]);
+        return min(prev_ends_with_zero,prev_ends_with_one);
     }
 };
