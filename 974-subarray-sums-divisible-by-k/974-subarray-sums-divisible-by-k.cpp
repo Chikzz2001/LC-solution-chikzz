@@ -15,11 +15,11 @@ public:
         for(auto &x:nums)
         {
             pre+=x;
-            int rem=pre%k;
-            if(freq.count(rem))
-                res+=freq[rem];
-            freq[rem]++;
-            if(pre>k)pre%=k;
+            pre%=k;
+            if(freq.count(pre))
+                res+=freq[pre];
+            freq[pre]++;
+            //if(pre>k)pre%=k;
         }
         return res;
     }
