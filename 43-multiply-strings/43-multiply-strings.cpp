@@ -16,7 +16,7 @@ public:
                 carry=sum/10;
                 k--;
             }
-            while(carry)
+            if(carry)
             {
                 int sum=res[k]-'0'+carry;
                 res[k]='0'+sum%10;
