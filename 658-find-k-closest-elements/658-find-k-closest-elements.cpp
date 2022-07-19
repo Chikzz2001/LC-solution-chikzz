@@ -29,7 +29,7 @@ public:
         }
         else
         lo=idx-1,hi=idx;
-        //cout<<k<<"\n";
+      
         while(lo>=0&&hi<n&&k-->0)
         {
             if(x-arr[lo]<=arr[hi]-x)
@@ -41,12 +41,12 @@ public:
                 res.push_back(arr[hi++]);
             }
         }
-           //cout<<k<<"\n";
+          
         while(lo>=0&&k-->0)
         {
             res.push_back(arr[lo--]);
         }
-        //cout<<k<<" "<<lo<<" "<<hi<<"\n";
+  
          while(hi<n&&k-->0)
         {
             res.push_back(arr[hi++]);
