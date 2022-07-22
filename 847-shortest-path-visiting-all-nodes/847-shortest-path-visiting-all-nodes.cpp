@@ -1,4 +1,5 @@
 class Solution {
+     bool vis[1<<12][12];
 public:
     int shortestPathLength(vector<vector<int>>& graph) {
         
@@ -6,13 +7,12 @@ public:
             return 0;
         
         queue<pair<int,int>>q;
-        set<pair<int,int>>vis;
-        
-        int n=graph.size();
+         int n=graph.size();
+       
         for(int i=0;i<n;i++)
         {
             q.push({i,(1<<i)});
-            vis.insert({i,(1<<i)});
+            vis[1<<i][i]=1;
         }
         
         int shortest_path=0;
@@ -29,11 +29,11 @@ public:
                 for(auto &nbr:graph[node])
                 {
                     int temp_mask=mask|(1<<nbr);
-                    if(!vis.count({nbr,temp_mask}))
+                    if(!vis[temp_mask][nbr])
                     {
                         if(temp_mask==(1<<n)-1)return shortest_path+1;
                         q.push({nbr,temp_mask});
-                        vis.insert({nbr,temp_mask});
+                        vis[temp_mask][nbr]=1;
                     }
                 }
             }
