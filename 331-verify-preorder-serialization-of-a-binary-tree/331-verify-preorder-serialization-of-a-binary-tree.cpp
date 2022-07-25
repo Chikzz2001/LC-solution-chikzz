@@ -6,34 +6,34 @@ public:
         if(preorder.length()==1&&preorder[0]=='#')return true;
         vector<string>store;
         
-        preorder+=",";
         string s;
         
-        for(int i=0;i<preorder.length();i++)
-        {
-            if(preorder[i]==',')
-            {
-                store.push_back(s);
-                s="";
-            }
-            else
-            {
-                s+=preorder[i];
-            }
-        }
+        // for(int i=0;i<preorder.length();i++)
+        // {
+        //     if(preorder[i]==',')
+        //     {
+        //         store.push_back(s);
+        //         s="";
+        //     }
+        //     else
+        //     {
+        //         s+=preorder[i];
+        //     }
+        // }
         
-        if(store[0]=="#")return false;
+        stringstream ss(preorder);
+        getline(ss,s,',');
+        if(s=="#")return false;
         tree.push(0);
         //0 1 2-->0-->no child visited
         //1-->left subtree is visited
         //2-->both subtrees is visited
         
         int idx=1;
-        while(idx<store.size())
+        while(getline(ss,s,','))
         {
-            string value=store[idx++];
             if(tree.empty())return false;
-            if(value!="#")
+            if(s!="#")
             {
                 tree.push(0);
             }
