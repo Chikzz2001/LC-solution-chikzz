@@ -8,25 +8,21 @@ public:
         {
             if(color[i]==-1)
             {
-                queue<int>q;
-                q.push(i);
+               stack<int>st;
+                st.push(i);
                 color[i]=1;
-                while(!q.empty())
+                while(!st.empty())
                 {
-                    int size=q.size();
-                    while(size--)
+                    int curr=st.top();
+                    st.pop();
+                    for(auto &nbr:graph[curr])
                     {
-                        int curr=q.front();q.pop();
-                        
-                        for(auto &nbr:graph[curr])
+                        if(color[nbr]==color[curr])
+                            return 0;
+                        else if(color[nbr]==-1)
                         {
-                            if(color[nbr]==-1)
-                            {
-                                q.push(nbr);
-                                color[nbr]=1-color[curr];
-                            }
-                            else if(color[nbr]==color[curr])
-                                return 0;
+                            color[nbr]=1-color[curr];
+                            st.push(nbr);
                         }
                     }
                 }
@@ -35,3 +31,22 @@ public:
         return 1;
     }
 };
+
+/*
+
+
+if(color[node]==color[par])return 0;
+color[node]=1-color[par];
+for(auto &nbr:graph[node])
+{
+    if(color[nbr]==-1)
+    {
+        if(!dfs(nbr,node))
+        return 0;
+    }
+    return 1;
+}
+
+
+
+*/
