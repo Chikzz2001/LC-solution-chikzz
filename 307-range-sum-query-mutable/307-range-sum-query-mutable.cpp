@@ -43,8 +43,6 @@ public:
         seg_tree=vector<int>(4*n,0);
         nums=num;
         build(nums,1,0,n-1);
-        // for(auto &s:seg_tree)
-        //     cout<<s<<" ";
     }
     
     void update(int index, int val) {
