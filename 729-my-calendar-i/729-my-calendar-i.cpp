@@ -36,15 +36,12 @@ public:
             {
                 if(events[lo+1][0]>=end)
                 {
-                    // events.push_back({start,end});
-                    // sort(events.begin(),events.end());
                      events.insert(events.begin()+(lo+1),{start,end});
                     return 1;
                 }
                 return 0;
             }
             events.push_back({start,end});
-            // sort(events.begin(),events.end());
             return 1;
         }
         return 0;
