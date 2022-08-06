@@ -4,16 +4,19 @@ public:
     {
         vector<vector<pair<int,int>>>graph(n);
         
-        for(int i=0;i<redEdges.size();i++)
+        //use positive edge-wt for red-edges
+        for(auto &r:redEdges)
         {
-            graph[redEdges[i][0]].push_back({redEdges[i][1],(i+1)});
+            graph[r[0]].push_back({r[1],1});
         }
         
-        for(int i=0;i<blueEdges.size();i++)
+        //use negative edge-wt for blue-edges
+        for(auto &b:blueEdges)
         {
-            graph[blueEdges[i][0]].push_back({blueEdges[i][1],-(i+1)});
+            graph[b[0]].push_back({b[1],-1});
         }
         
+        //node-->{current vertex,edge color through which we accessed it}
         queue<pair<int,int>>q;
         q.push({0,0});
         vector<int>distr(n,1e9),distb(n,1e9);
