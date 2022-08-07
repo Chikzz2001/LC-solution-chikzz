@@ -3,20 +3,20 @@ class Solution {
     const int M=1e9+7;
 public:
     int countVowelPermutation(int n) {
-        vector<vector<ll>>dp(n,vector<ll>(5,1));
+        ll pa=1,pe=1,pi=1,po=1,pu=1;
         
-        for(int i=1;i<n;i++)
+        for(int c=1;c<n;c++)
         {
-                dp[i][0]=dp[i-1][1];
-                dp[i][1]=(dp[i-1][0]+dp[i-1][2])%M;
-                dp[i][2]=((dp[i-1][0]+dp[i-1][1])%M+(dp[i-1][3]+dp[i-1][4])%M)%M;
-                dp[i][3]=(dp[i-1][2]+dp[i-1][4])%M;
-                dp[i][4]=dp[i-1][0];
+                ll a=pe;
+                ll e=(pa+pi)%M;
+                ll i=((pa+pe)%M+(po+pu)%M)%M;
+                ll o=(pi+pu)%M;
+                ll u=pa;
+                pa=a,pe=e,pi=i,po=o,pu=u;
         }
         
         ll res=0;
-        for(int i=0;i<5;i++)
-            res=(res%M+dp[n-1][i]%M)%M;
+            res=(pa%M+pe%M+pi%M+po%M+pu%M)%M;
         
         return res;
     }
