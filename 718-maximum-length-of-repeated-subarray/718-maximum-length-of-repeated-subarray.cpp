@@ -1,53 +1,33 @@
 class Solution {
-public:
-    int findLength(vector<int>& nums1, vector<int>& nums2) {
+    int maxsublen_of_first_in_second(vector<int>& nums1,vector<int>& nums2)
+    {
         int n=nums1.size(),m=nums2.size();
-        
         int res=0;
-        for(int j=0;j<m;j++)
+        for(int i=0;i<n;i++)
         {
-            for(int i=0;i<n;)
+            for(int j=0;j<m;)
             {
                 if(nums1[i]==nums2[j])
                 {
-                    int k=j;
+                    int k=i;
                     int len=0;
-                    while(i<n&&k<m&&nums1[i]==nums2[k])
-                        i++,k++,len++;
+                    while(j<m&&k<n&&nums1[k]==nums2[j])
+                        j++,k++,len++;
                     if(len>res)
                     {
-                        //cout<<i<<" "<<j<<" "<<len<<"\n";
                         res=max(res,len);
                     }
                     
                 }
                 else
-                    i++;
-            }
-        }
-        
-         for(int j=0;j<n;j++)
-        {
-            for(int i=0;i<m;)
-            {
-                if(nums1[j]==nums2[i])
-                {
-                    int k=j;
-                    int len=0;
-                    while(i<m&&k<n&&nums2[i]==nums1[k])
-                        i++,k++,len++;
-                    if(len>res)
-                    {
-                        //cout<<i<<" "<<j<<" "<<len<<"\n";
-                        res=max(res,len);
-                    }
-                    
-                }
-                else
-                    i++;
+                    j++;
             }
         }
         return res;
+    }
+public:
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        return max(maxsublen_of_first_in_second(nums1,nums2),maxsublen_of_first_in_second(nums2,nums1));
     }
 };
 
