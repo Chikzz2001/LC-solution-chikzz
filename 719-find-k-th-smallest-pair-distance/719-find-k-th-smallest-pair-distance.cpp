@@ -1,8 +1,6 @@
 class Solution {
     int countPairs(vector<int>& nums,int mid)
     {
-        //1 1 3
-        //d-a=mid
         int res=0;
         for(int i=0;i<nums.size();i++)
         {
@@ -17,6 +15,7 @@ public:
         sort(nums.begin(),nums.end());
         
         int n=nums.size();
+        int res;
         int lo=1e9,hi=nums[n-1]-nums[0];
         for(int i=1;i<n;i++)lo=min(lo,nums[i]-nums[i-1]);
         
@@ -31,6 +30,6 @@ public:
             else
                 lo=mid+1;
         }
-        return lo;
+        return res;
     }
 };
