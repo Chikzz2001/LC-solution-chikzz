@@ -1,24 +1,36 @@
-#define ll long long int
 class Solution {
 public:
     long long numberOfWays(string s) {
-        int n=s.length();
-        vector<vector<int>>prev(n+2,vector<int>(2,0));
-        vector<vector<int>>next(n+2,vector<int>(2,0));
+        unordered_map<int,pair<int,int>>mp;
         
-        for(int i=1;i<=n;i++)
-            prev[i][0]=prev[i-1][0]+(s[i-1]=='0'),prev[i][1]=prev[i-1][1]+(s[i-1]=='1');
-        
-        for(int i=n;i>0;i--)
-            next[i][0]=next[i+1][0]+(s[i-1]=='0'),next[i][1]=next[i+1][1]+(s[i-1]=='1');
-        
-        ll ways=0;
-        for(int i=1;i<=n;i++)
+        int cz=0;
+        for(int i=0;i<s.length();i++)
         {
-            int compliment=1-(s[i-1]-'0');
-            ways+=1LL*prev[i-1][compliment]*next[i+1][compliment];
+            mp[i].first=cz;
+            if(s[i]=='0')
+                cz++;
+        }
+        cz=0;
+        for(int i=s.length()-1;i>=0;i--)
+        {
+            mp[i].second=cz;
+            if(s[i]=='0')
+                cz++;
         }
         
-        return ways;
+        long long res=0;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]=='0')
+            {
+                res+=(i-mp[i].first)*(s.length()-(i+1)-mp[i].second);
+            }
+            else
+            {
+                res+=(mp[i].first)*mp[i].second;
+            }
+        }
+        
+        return res;
     }
 };
