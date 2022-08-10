@@ -28,16 +28,8 @@ public:
                 i++;
             }
             res=max(res,j-i+1);
-            //cout<<text.substr(i,j-i+1)<<"\n";
             j++;
         }
         return res;
     }
 };
-
-
-/*
-
-cabc
-
-*/
