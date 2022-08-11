@@ -1,5 +1,4 @@
 class Twitter {
-    map<int,set<int>>followers;
     map<int,set<int>>following;
     vector<pair<int,int>>msgs;
 public:
