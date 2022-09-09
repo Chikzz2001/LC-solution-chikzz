@@ -16,44 +16,42 @@ public:
 
 class Solution {
 public:
-    Node* copyRandomList(Node* head) 
-    {
-        if(!head)
-            return NULL;
+    Node* copyRandomList(Node* head) {
+        if(!head)return NULL;
+        //original1-->copy1-->original2-->copy2....
         
-        Node* temp=head;
-        while(temp)
+        Node* temp,*traverse=head;
+        
+        while(traverse)
         {
-            Node* next=temp->next;
-            temp->next=new Node(temp->val);
-            temp->next->next=next;
-            temp=temp->next->next;
+            Node* copy_node=new Node(traverse->val);
+            Node* temp=traverse->next;
+            traverse->next=copy_node;
+            copy_node->next=temp;
+            traverse=temp;
+        }
+       
+        traverse=head;
+        
+        while(traverse)
+        {
+            traverse->next->random=traverse->random?traverse->random->next:NULL;
+            traverse=traverse->next->next;
         }
         
-        Node* newhead=head->next;
-        temp=head;
+        Node* dummy=new Node(0);
+        Node* t=dummy;
+        traverse=head;
         
-        while(temp)
+        while(traverse)
         {
-            temp->next->random=temp->random?temp->random->next:NULL;
-            temp=temp->next->next;
+            Node* next=traverse->next->next;
+            t->next=traverse->next;
+            t=t->next;
+            traverse->next=next;
+            traverse=next;
         }
         
-        Node* temp1=head,*temp2=head->next;
-        while(temp1)
-        {
-            temp1->next=temp1->next?temp1->next->next:NULL;
-            temp2->next=temp1->next?temp1->next->next:NULL;
-            temp1=temp1->next;
-            temp2=temp2->next;
-        }
-        
-        return newhead;
+        return dummy->next;
     }
 };
-
-/*
-
-7-->13-->11-->10-->1-->NULL
-
-*/
