@@ -14,14 +14,6 @@ class Solution {
                 val=(val+1)%M;
             }
         }
-//         reverse(s.begin(),s.end());
-//         //cout<<n<<" "<<s<<"\n";
-//         for(auto &x:s)
-//         {
-            
-//             if(x=='1')
-                
-//         }
         return val%M;
     }
 public:
