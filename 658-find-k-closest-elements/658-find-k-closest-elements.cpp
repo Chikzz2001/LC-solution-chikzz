@@ -1,57 +1,35 @@
 class Solution {
 public:
-    vector<int> findClosestElements(vector<int>& arr, int k, int x) 
-    {
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        
+        for(auto &y:arr)
+        {
+            pq.push({abs(y-x),(y-x)});
+        }
+        
+        // while(!pq.empty())
+        // {
+        //     cout<<pq.top().first<<" "<<pq.top().second<<"\n";
+        //     pq.pop();
+        // }
+        // return {};
         vector<int>res;
-        int n=arr.size();
-        if(x<=arr[0])
-        {
-            for(int i=0;i<min(n,k);i++)
-                res.push_back(arr[i]);
-            return res;
-        }
         
-        if(x>arr[n-1])
+        while(k--)
         {
-            for(int i=n-1;i>=max(0,n-k);i--)
-                res.push_back(arr[i]);
-            reverse(res.begin(),res.end());
-            return res;
-        }
-        
-        int idx=lower_bound(arr.begin(),arr.end(),x)-arr.begin();
-        int lo,hi;
-        if(arr[idx]==x)
-        {
-            res.push_back(x);
-            lo=idx-1,hi=idx+1;
-            k--;
-        }
-        else
-        lo=idx-1,hi=idx;
-      
-        while(lo>=0&&hi<n&&k-->0)
-        {
-            if(x-arr[lo]<=arr[hi]-x)
-            {
-                res.push_back(arr[lo--]);
+            auto [diff,sign]=pq.top();
+            pq.pop();
+            
+                if(sign<0)
+                    res.push_back(x-diff);
+                else
+                    res.push_back(x+diff);
+            
             }
-            else
-            {
-                res.push_back(arr[hi++]);
-            }
-        }
-          
-        while(lo>=0&&k-->0)
-        {
-            res.push_back(arr[lo--]);
-        }
-  
-         while(hi<n&&k-->0)
-        {
-            res.push_back(arr[hi++]);
-        }
+
         sort(res.begin(),res.end());
+        
         return res;
     }
 };
