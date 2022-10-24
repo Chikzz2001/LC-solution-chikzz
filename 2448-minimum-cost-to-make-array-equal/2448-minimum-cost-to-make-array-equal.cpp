@@ -34,13 +34,6 @@ public:
             else
                 return f_curr;
         }
-        ll start=0,last=0;
-        lo=*min_element(nums.begin(),nums.end()),hi=*max_element(nums.begin(),nums.end());
-        for(int i=0;i<nums.size();i++)
-                start+=1LL*abs(lo-nums[i])*cost[i];
-        for(int i=0;i<nums.size();i++)
-                last+=1LL*abs(hi-nums[i])*cost[i];
-        
-        return min(start,last);
+        return 0;
     }
 };
