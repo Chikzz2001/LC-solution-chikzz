@@ -6,11 +6,8 @@ class Solution {
     int ml;
     ll helper(string &s,int k,int idx)
     {
-        if(k==0)
-        {
-            return idx<s.length()?1:0;
-        }
         if(idx>=s.length())return 0;
+        if(!k)return 1;
         
         if(dp[idx][k]!=-1LL)return dp[idx][k];
         ll res=0;
