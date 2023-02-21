@@ -1,27 +1,21 @@
 class Solution {
-    int dp[1<<15][15];
-    int helper(vector<int>& nums1,vector<int>& nums2,int mask,int i)
-    {
-        if(i==nums1.size())
-        {
-            return 0;
-        }
-        
-        if(dp[mask][i]!=-1)return dp[mask][i];
-        
-        int minn=1e9;
-        for(int j=0;j<nums2.size();j++)
-        {
-            if(!((mask>>j)&1))
-            {
-                minn=min(minn,(nums1[i]^nums2[j])+helper(nums1,nums2,mask|(1<<j),i+1));
-            }
-        }
-        return dp[mask][i]=minn;
-    }
 public:
     int minimumXORSum(vector<int>& nums1, vector<int>& nums2) {
-        memset(dp,-1,sizeof(dp));
-        return helper(nums1,nums2,0,0);
+        int n=nums1.size();
+        vector<int>dp((1<<n),0);
+        for(int i=n-1;i>=0;i--) {
+            vector<int>t_dp((1<<n),1e9);
+            for(int j=0;j<(1<<n);j++) {
+                for(int k=0;k<n;k++) {
+                    if(!(j&(1<<k)))
+                    t_dp[j]=min(t_dp[j],(nums1[i]^nums2[k])+dp[j|(1<<k)]);
+                }
+            }
+            dp=t_dp;
+        }
+        return dp[0];
     }
 };
+
+
+//11111111111111-->2
