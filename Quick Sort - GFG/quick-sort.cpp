@@ -34,14 +34,13 @@ class Solution
        int pivot=arr[high];
        int i = low;
      
-       for(int j=low;j<high;j++) {
-           if(arr[j]<pivot) {
+       for(int j=low;j<=high;j++) {
+           if(arr[j]<=pivot) {
                swap(arr[i],arr[j]);
                i++;
            }
        }
-       swap(arr[i],arr[high]);
-       return i;
+       return i-1;
     }
 };
 
