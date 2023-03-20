@@ -13,19 +13,10 @@ class Solution {
             return par[x]=find(par[x]);
         }
         
-        bool is_joined(int a,int b) {
+        void join(int a,int b) {
             int pa=find(a);
             int pb=find(b);
-            if(pa==pb)return 1;
-            if(size[pa]>=size[pb]) {
-                par[pb]=pa;
-                size[pa]+=size[pb];
-            }
-            else {
-                par[pa]=pb;
-                size[pb]+=size[pa];
-            }
-            return 0;
+            par[pa]=pb;
         }
         
         void reset(int a) {
@@ -41,12 +32,12 @@ public:
         }
         
         DSU dsu(n);
-        dsu.is_joined(0,firstPerson);
+        dsu.join(0,firstPerson);
         
         for(auto [x,y]:m) {
             set<int>S;
             for(auto [u,v]:y) {
-                dsu.is_joined(u,v);
+                dsu.join(u,v);
                 S.insert(u);
                 S.insert(v);
             }
