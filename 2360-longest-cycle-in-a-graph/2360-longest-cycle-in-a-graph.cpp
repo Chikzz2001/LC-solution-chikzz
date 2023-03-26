@@ -1,52 +1,25 @@
 class Solution {
-    int max_cycle_len=-1;
-    vector<int>vis,dist;
-    int steps=0;
-    void dfs(vector<vector<int>>& graph,int node)
-    {
-        steps++;
-        
-        vis[node]=1;
-        //cout<<node<<" "<<steps<<"\n";
-        dist[node]=steps;
-        for(auto &nbr:graph[node])
-        {
-            if(!vis[nbr])
-            {
-                dfs(graph,nbr);
-            }
-            else if(vis[nbr]==1)
-            {
-               max_cycle_len=max(max_cycle_len,steps+1-dist[nbr]); 
-            }
+    int maxlen=-1;
+    void dfs(vector<int>& edges,vector<int>& vis,int node,int time) {
+        vis[node]=time;
+        if(edges[node]==-1){vis[node]+=100000;return;}
+        if(!vis[edges[node]])dfs(edges,vis,edges[node],time+1);
+        else if(vis[edges[node]]<=100000) {
+            maxlen=max(maxlen,time+1-vis[edges[node]]);
         }
-        
-        vis[node]=2;
-        steps--;
+        vis[node]+=100000;
     }
 public:
-    int longestCycle(vector<int>& edges) 
-    {
+    int longestCycle(vector<int>& edges) {
         int n=edges.size();
-        vis=vector<int>(n,0);
-        dist=vector<int>(n,1e7);
+        vector<int>vis(n,0);
         
-        vector<vector<int>>graph(n);
-        for(int i=0;i<n;i++)
-        {
-            if(edges[i]!=-1)
-                graph[i].push_back(edges[i]);
+        for(int i=0;i<n;i++) {
+            if(!vis[i]) {
+                dfs(edges,vis,i,1);
+            }
         }
         
-        for(int i=0;i<n;i++)
-        {
-            if(vis[i]==0)
-            {
-                steps=0;
-                dfs(graph,i);
-            }  
-        }
-        
-        return max_cycle_len<=-1?-1:max_cycle_len;
+        return maxlen;
     }
 };
