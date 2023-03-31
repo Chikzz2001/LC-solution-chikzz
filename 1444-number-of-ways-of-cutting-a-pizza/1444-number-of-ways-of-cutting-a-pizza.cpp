@@ -35,7 +35,6 @@ public:
             }
         }
         memset(dp,-1,sizeof(dp));
-        // cout<<pre[n][m];
         return helper(1,1,k);
     }
 };
