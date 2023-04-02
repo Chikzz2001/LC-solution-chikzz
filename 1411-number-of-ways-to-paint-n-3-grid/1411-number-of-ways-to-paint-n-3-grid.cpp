@@ -1,41 +1,42 @@
-#define ll long long int
 class Solution {
-    ll dp[5001][4][4][4];
+    int dp[5001][4][4][4];
     const int M=1e9+7;
-    int N;
-    int ways(int row,int col1,int col2,int col3)
-    {
-        if(row==N)return 1;
+public:
+    int numOfWays(int n) {
+        for(int i=0;i<3;i++) {
+            for(int j=0;j<3;j++) {
+                for(int k=0;k<4;k++)
+                    if(i!=j&&j!=k)
+                    dp[0][i][j][k]=1;
+            }
+        }
         
-        if(dp[row][col1][col2][col3]!=-1)return dp[row][col1][col2][col3];
-        
-        ll res=0;
-        for(int c1=0;c1<3;c1++)
-        {
-            if(c1!=col1)
-            {
-                for(int c2=0;c2<3;c2++)
-                {
-                    if(c2!=col2&&c2!=c1)
-                    {
-                        for(int c3=0;c3<3;c3++)
-                        {
-                            if(c3!=col3&&c3!=c2)
-                            {
-                                res=(res%M+ways(row+1,c1,c2,c3)%M)%M;
+        for(int i=1;i<n;i++) {
+            for(int a=0;a<3;a++) {
+                for(int b=0;b<3;b++) {
+                    for(int c=0;c<3;c++) {
+                        if(a!=b&&b!=c) {
+                            for(int d=0;d<3;d++) {
+                                for(int e=0;e<3;e++) {
+                                    for(int f=0;f<3;f++) {
+                                        if(d!=e&&e!=f&&d!=a&&e!=b&&f!=c)dp[i][a][b][c]=(dp[i][a][b][c]%M+dp[i-1][d][e][f]%M)%M;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        return dp[row][col1][col2][col3]=res;
-    }
-public:
-    int numOfWays(int n) 
-    {
-        N=n;
-        memset(dp,-1LL,sizeof(dp));
-        return ways(0,3,3,3);
+        int res=0;
+        for(int i=0;i<3;i++) {
+            for(int j=0;j<3;j++) {
+                for(int k=0;k<3;k++) {
+                    if(i!=j&&j!=k)
+                    res=(res%M+dp[n-1][i][j][k]%M)%M;
+                }
+            }
+        }
+        return res;
     }
 };
