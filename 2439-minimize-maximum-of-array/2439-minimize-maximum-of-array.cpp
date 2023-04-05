@@ -1,40 +1,20 @@
-#define ll long long int
 class Solution {
-    bool valid(vector<int>& nums,int m)
-    {
-        if(nums[0]>m)return 0;
-        ll excess=m-nums[0];
-        for(int i=1;i<nums.size();i++)
-        {
-            if(nums[i]>m)
-            {
-                if(excess>=(nums[i]-m))
-                    excess-=(nums[i]-m);
-                else
-                    return 0;
-            }
-            else
-                excess+=(m-nums[i]);
-        }
-       return 1;
-    }
 public:
     int minimizeArrayValue(vector<int>& nums) {
-        int lo=*min_element(nums.begin(),nums.end());
-        int hi=*max_element(nums.begin(),nums.end());
-        
-        int res;
-        while(lo<=hi)
-        {
-            int mid=lo+(hi-lo)/2;
-            if(valid(nums,mid))
-            {
-                res=mid;
-                hi=mid-1;
+        int l=-1,r=-1;
+        for(int i=0;i<nums.size();i++)r=max(r,nums[i]);
+        while((r-l)>1) {
+            int m=l+r>>1;
+            bool ok=1;
+            long long tot=0;
+            for(int i=0;i<nums.size();i++) {
+                if(nums[i]-tot>m){ok=0;break;}
+                tot-=max(0,nums[i]-m);
+                tot+=max(0,m-nums[i]);
             }
-            else
-                lo=mid+1;
+            if(ok)r=m;
+            else l=m;
         }
-        return res;
+        return r;
     }
 };
