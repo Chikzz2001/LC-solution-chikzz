@@ -17,8 +17,8 @@ public:
         multiset<int>available_size;
         
         vector<int>res(queries.size());
-        for(auto [point,args]:line) {
-            for(auto [type,x]:args) {
+        for(auto &[point,args]:line) {
+            for(auto &[type,x]:args) {
                 if(type==0) {
                     available_size.insert(x);
                 }
