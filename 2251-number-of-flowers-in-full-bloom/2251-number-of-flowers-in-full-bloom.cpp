@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> fullBloomFlowers(vector<vector<int>>& flowers, vector<int>& persons) {
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        priority_queue<int>pQ;
         vector<vector<int>>P;
         for(int i=0;i<persons.size();i++) {
             P.push_back({persons[i],i});
@@ -13,14 +13,14 @@ public:
         vector<int>res(P.size());
         while(pp<P.size()) {
             while(fp<flowers.size()&&flowers[fp][0]<=P[pp][0]) {
-                pq.push({flowers[fp][1],flowers[fp][0]});
+                pQ.push(-flowers[fp][1]);
                 fp++;
             }
-            while(!pq.empty()) {
-                if(pq.top().first<P[pp][0])pq.pop();
+            while(!pQ.empty()) {
+                if(-pQ.top()<P[pp][0])pQ.pop();
                 else break;
             }
-            res[P[pp][1]]=pq.size();
+            res[P[pp][1]]=pQ.size();
             pp++;
         }
         return res;
