@@ -25,10 +25,14 @@ public:
             }
             
             for(auto it:sr) {
+                //suppose sr[i]-->(ai,aj)----->(bi,bj) with cost c
+                
+                //if dist[ai][aj]>dist[i][j]+|ai-i|+|aj-j|
                 if(dist[{it[0],it[1]}]>wt+abs(i-it[0])+abs(j-it[1])) {
                     dist[{it[0],it[1]}]=wt+abs(it[0]-i)+abs(it[1]-j);
                     pq.push({-dist[{it[0],it[1]}],{it[0],it[1]}});
                 }
+                //if dist[ai][aj]>dist[i][j]+|ai-i|+|aj-j|+min(|ai-bi|+|aj-bj|,c)
                 if(dist[{it[2],it[3]}]>wt+abs(i-it[0])+abs(j-it[1])+min(abs(it[0]-it[2])+abs(it[1]-it[3]),it[4])) {
                     dist[{it[2],it[3]}]=wt+abs(i-it[0])+abs(j-it[1])+min(abs(it[0]-it[2])+abs(it[1]-it[3]),it[4]);
                     pq.push({-dist[{it[2],it[3]}],{it[2],it[3]}});
