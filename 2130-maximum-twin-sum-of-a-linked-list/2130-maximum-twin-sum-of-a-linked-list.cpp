@@ -37,7 +37,6 @@ public:
     int pairSum(ListNode* head) 
     {
         ListNode* middle=findMiddle(head);
-        
         middle=reverse(middle);
         
         int maxx=0;
