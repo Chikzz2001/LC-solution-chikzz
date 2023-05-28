@@ -1,61 +1,52 @@
 class Solution {
-    class DSU {
-        public:
-        vector<int>par,size;
-        DSU(int n) {
-            par=vector<int>(n);
-            size=vector<int>(n,1);
-            for(int i=0;i<n;i++)par[i]=i;
-        }
-        int find(int x) {
-            if(x==par[x])return x;
-            return par[x]=find(par[x]);
-        }
-        void join(int a,int b) {
-            int pa=find(a);
-            int pb=find(b);
-            if(pa==pb)return;
-            if(size[pa]<size[pb]) {
-                par[pa]=par[pb];
-                size[pb]+=size[pa];
-            }
-            else {
-                par[pb]=par[pa];
-                size[pa]+=size[pb];
-            }
-        }
-    };
+    int find(int x,map<int,int>& p) {
+        if(p[x]==x)return x;
+        return p[x]=find(p[x],p);
+    }
+    void join(int a,int b,map<int,int>& p) {
+        int pa=find(a,p);
+        int pb=find(b,p);
+        p[pa]=p[pb];
+    }
 public:
     bool canTraverseAllPairs(vector<int>& nums) {
          int n=nums.size();
         if(n==1)return 1;
         
-        DSU dsu(n);
-        map<int,int>id;
-        for(int i=0;i<n;i++) {
-            if(nums[i]==1)return 0;
-            for(int j=2;j*j<=nums[i];j++) {
-                if(nums[i]%j==0) {
-                    if(id.count(j)) {
-                        dsu.join(id[j],i);
-                    }
-                    else {
-                        id[j]=i;
-                    }
-                    while(nums[i]%j==0) {
-                        nums[i]/=j;
-                    }
-                }
-            }
-            if(nums[i]>1) {
-                if(id.count(nums[i])) {
-                    dsu.join(id[nums[i]],i);
-                }
-                else {
-                    id[nums[i]]=i;
-                }
-            }
+        int maxx=*max_element(nums.begin(),nums.end());
+        map<int,int>par;
+        for(int x:nums) {
+            if(x==1)return 0;
+            par[x]=x;
         }
-        return dsu.size[dsu.find(0)]==n;
+        
+        
+        vector<bool>prime(maxx+1,1);
+        for(int i=2;i<=maxx;i++) {
+            if(!prime[i])continue;
+            par[i]=i;
+            for(int j=2*i;j<=maxx;j+=i) {
+                if(par.count(j)) {
+                    if(par[j]==j)par[j]=i;
+                    else {
+                        // cout<<i<<" "<<j<<" "<<find(j,par)<<"\n";
+                        int p=find(j,par);
+                        // cout<<i<<" "<<j<<" "<<find(j,par)<<"\n";
+                        join(p,i,par);
+                    }
+                }
+                prime[j]=0;
+            }
+            // cout<<i<<"\n";
+            // for(auto [x,y]:par)cout<<x<<" "<<y<<"\n";
+            // cout<<"\n";
+        }
+        // cout<<find(28,par)<<" "<<find(39,par)<<"\n";
+        set<int>parent;
+        for(int x:nums) {
+            parent.insert(find(x,par));
+        }
+        
+        return parent.size()==1;
     }
 };
