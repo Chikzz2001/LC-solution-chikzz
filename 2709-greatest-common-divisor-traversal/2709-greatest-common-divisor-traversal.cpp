@@ -1,23 +1,4 @@
 class Solution {
-    vector<int> SieveOfEratosthenes(int n)
-    {
-        bool prime[n + 1];
-        memset(prime, true, sizeof(prime));
-
-        for (int p = 2; p * p <= n; p++) {
-            if (prime[p] == true) {
-                for (int i = p * p; i <= n; i += p)
-                    prime[i] = false;
-            }
-        }
-
-        vector<int>P;
-        for (int p = 2; p <= n; p++)
-            if (prime[p])
-                P.push_back(p);
-
-            return P;
-    }
     class DSU {
         public:
         vector<int>par,size;
@@ -49,7 +30,6 @@ public:
          int n=nums.size();
         if(n==1)return 1;
         int maxx=*max_element(nums.begin(),nums.end());
-        vector<int>P=SieveOfEratosthenes(317);
        
         DSU dsu(n);
         map<int,int>id;
@@ -69,13 +49,13 @@ public:
                 }
             }
             if(nums[i]>1) {
-                        if(id.count(nums[i])) {
-                            dsu.join(id[nums[i]],i);
-                        }
-                        else {
-                            id[nums[i]]=i;
-                        }
-                    }
+                if(id.count(nums[i])) {
+                    dsu.join(id[nums[i]],i);
+                }
+                else {
+                    id[nums[i]]=i;
+                }
+            }
         }
         return dsu.size[dsu.find(0)]==n;
     }
