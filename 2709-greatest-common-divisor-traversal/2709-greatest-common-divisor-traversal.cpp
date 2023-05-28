@@ -6,7 +6,7 @@ class Solution {
     void join(int a,int b,map<int,int>& p) {
         int pa=find(a,p);
         int pb=find(b,p);
-        p[pa]=p[pb];
+        p[pa]=pb;
     }
 public:
     bool canTraverseAllPairs(vector<int>& nums) {
@@ -29,19 +29,14 @@ public:
                 if(par.count(j)) {
                     if(par[j]==j)par[j]=i;
                     else {
-                        // cout<<i<<" "<<j<<" "<<find(j,par)<<"\n";
                         int p=find(j,par);
-                        // cout<<i<<" "<<j<<" "<<find(j,par)<<"\n";
                         join(p,i,par);
                     }
                 }
                 prime[j]=0;
             }
-            // cout<<i<<"\n";
-            // for(auto [x,y]:par)cout<<x<<" "<<y<<"\n";
-            // cout<<"\n";
         }
-        // cout<<find(28,par)<<" "<<find(39,par)<<"\n";
+       
         set<int>parent;
         for(int x:nums) {
             parent.insert(find(x,par));
