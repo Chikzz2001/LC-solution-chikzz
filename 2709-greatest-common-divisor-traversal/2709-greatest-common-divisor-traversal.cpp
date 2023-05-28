@@ -29,8 +29,7 @@ public:
     bool canTraverseAllPairs(vector<int>& nums) {
          int n=nums.size();
         if(n==1)return 1;
-        int maxx=*max_element(nums.begin(),nums.end());
-       
+        
         DSU dsu(n);
         map<int,int>id;
         for(int i=0;i<n;i++) {
