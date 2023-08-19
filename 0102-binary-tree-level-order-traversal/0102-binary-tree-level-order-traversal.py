@@ -4,23 +4,24 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from queue import Queue
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if root==None:
             return []
-        queue=deque()
-        queue.append(root)
+        queue=Queue(maxsize=0)
+        queue.put(root)
         res=[]
-        while(len(queue)>0):
-            size=len(queue)
+        while(queue.qsize()>0):
+            size=queue.qsize()
             a=[]
             while size>0:
-                curr=queue.popleft()
+                curr=queue.get()
                 a.append(curr.val)
                 if curr.left!=None:
-                    queue.append(curr.left)
+                    queue.put(curr.left)
                 if curr.right!=None:
-                    queue.append(curr.right)
+                    queue.put(curr.right)
                 size=size-1
             res.append(a)
         return res
