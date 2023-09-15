@@ -41,7 +41,7 @@ public:
             }
             int net=presses-c;
             if(net<0||net&1)continue;
-            // cout<<i<<"\n";
+            
             for(int j=0;j<4;j++) {
                 if(g[i]&(1<<j)) {
                     for(int k=0;k<v[j].size();k++) {
