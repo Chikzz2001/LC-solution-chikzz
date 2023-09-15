@@ -1,41 +1,50 @@
 class Solution {
-    int dp[5001][4][4][4];
+    vector<vector<int>>g;
+    vector<int>t;
+    vector<vector<int>>dp;
     const int M=1e9+7;
-public:
-    int numOfWays(int n) {
-        for(int i=0;i<3;i++) {
-            for(int j=0;j<3;j++) {
-                for(int k=0;k<4;k++)
-                    if(i!=j&&j!=k)
-                    dp[0][i][j][k]=1;
-            }
+    
+    void generate(int n) {
+        if(t.size()==n) {
+            g.push_back(t);
+            return;
         }
         
-        for(int i=1;i<n;i++) {
-            for(int a=0;a<3;a++) {
-                for(int b=0;b<3;b++) {
-                    for(int c=0;c<3;c++) {
-                        if(a!=b&&b!=c) {
-                            for(int d=0;d<3;d++) {
-                                for(int e=0;e<3;e++) {
-                                    for(int f=0;f<3;f++) {
-                                        if(d!=e&&e!=f&&d!=a&&e!=b&&f!=c)dp[i][a][b][c]=(dp[i][a][b][c]%M+dp[i-1][d][e][f]%M)%M;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        for(int i=0;i<=2;i++) {
+            if(!t.size()||t.back()!=i) {
+                t.push_back(i);
+                generate(n);
+                t.pop_back();
             }
         }
+    }
+    
+    int helper(int i,int m,int pre) {
+        if(i==m)return 1;
+        
+        if(dp[i][pre]!=-1)return dp[i][pre];
+        
         int res=0;
-        for(int i=0;i<3;i++) {
-            for(int j=0;j<3;j++) {
-                for(int k=0;k<3;k++) {
-                    if(i!=j&&j!=k)
-                    res=(res%M+dp[n-1][i][j][k]%M)%M;
-                }
+        for(int j=0;j<g.size();j++) {
+            bool match=1;
+            for(int k=0;k<g[j].size();k++) {
+                if(g[pre][k]==g[j][k]){match=0;break;}
             }
+            if(match) {
+                res=(res%M+helper(i+1,m,j)%M)%M;
+            }
+        }
+        return dp[i][pre]=res;
+    }
+public:
+    int numOfWays(int m) {
+        generate(3);
+        
+        int sz=g.size();
+        dp=vector<vector<int>>(m,vector<int>(sz,-1));
+        int res=0;
+        for(int i=0;i<sz;i++) {
+            res=(res%M+helper(1,m,i)%M)%M;
         }
         return res;
     }
