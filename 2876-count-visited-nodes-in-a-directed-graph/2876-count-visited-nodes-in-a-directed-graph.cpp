@@ -2,11 +2,6 @@ class Solution {
 public:
     vector<int> countVisitedNodes(vector<int>& edges) {
         int n=edges.size();
-        vector<int>g[n];
-        for(int i=0;i<n;i++) {
-            g[i].push_back(edges[i]);
-        }
-        
         vector<int>vis(n,0);
         
         for(int i=0;i<n;i++) {
@@ -42,7 +37,6 @@ public:
                         else vis[x]=xx;
                     }
                 }
-                
             }
         }
         
